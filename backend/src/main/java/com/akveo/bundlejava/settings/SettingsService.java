@@ -20,6 +20,10 @@ public class SettingsService {
         this.settingsRepository = settingsRepository;
     }
 
+    public Settings findByThemeName(String themeName) {
+        return settingsRepository.findByThemeName(themeName);
+    }
+
     public Settings getSettingsByUserId(Long id) {
         return settingsRepository.findById(id).orElseThrow(
                 () -> new SettingsNotFoundHttpException("Setting with id: " + id + " not found", HttpStatus.NOT_FOUND)

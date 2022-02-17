@@ -4,40 +4,27 @@
   ~ See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
   -->
 
-<h1 id="title" class="title">Register</h1>
-
-<nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
-  <p class="alert-title"><b>Oh snap!</b></p>
-  <ul class="alert-message-list">
-    <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
-  </ul>
-</nb-alert>
-
-<nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
-  <p class="alert-title"><b>Hooray!</b></p>
-  <ul class="alert-message-list">
-    <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
-  </ul>
-</nb-alert>
+<h1 id="title" class="title">{{translator('register')}}</h1>
 
 <div [formGroup]="registerForm" aria-labelledby="title">
   <div class="form-control-group">
-    <label for="input-name">Full Name:</label>
+    <label for="input-name">{{translator('full_name')}}</label>
     <input  nbInput
             autofocus
             fullWidth
+            required
             fieldSize="large"
             id="input-name"
             formControlName="fullName"
             [status]="fullName.dirty ? (fullName.invalid  ? 'danger' : 'success') : ''"
             [attr.aria-invalid]="fullName.invalid && fullName.touched ? true : null"
-            placeholder="Full name">
-    <ngx-validation-message label="Full name" [showRequired]="fullName?.errors?.required && fullName.touched">
+            placeholder="{{translator('full_name')}}">
+    <ngx-validation-message label="{{translator('full_name')}}" [showRequired]="fullName?.errors?.required && fullName.touched">
     </ngx-validation-message>
   </div>
 
   <div class="form-control-group">
-    <label for="input-email">Email address:</label>
+    <label for="input-email">{{translator('email_address')}}</label>
     <input  nbInput
             fullWidth
             fieldSize="large"
@@ -45,13 +32,13 @@
             formControlName="email"
             [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
             [attr.aria-invalid]="email.invalid && email.touched ? true : null"
-            placeholder="Email address">
-    <ngx-validation-message label="Email address" [showPattern]="email?.hasError('pattern') && email.touched"
+            placeholder="{{translator('email_address')}}">
+    <ngx-validation-message label="{{translator('email_address')}}" [showPattern]="email?.hasError('pattern') && email.touched"
       [showRequired]="email?.errors?.required && email.touched"></ngx-validation-message>
   </div>
 
   <div class="form-control-group">
-    <label for="input-password">Password:</label>
+    <label for="input-password">{{translator('password')}}</label>
     <input  nbInput
             fullWidth
             fieldSize="large"
@@ -59,7 +46,7 @@
             formControlName="password"
             type="password"
             [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
-            placeholder="Password">
+            placeholder="{{translator('password')}}">
     <ngx-validation-message label="Password" [showMinLength]="password?.hasError('minlength') && password.touched"
       [showMaxLength]="password?.hasError('maxlength') && password.touched"
       [showRequired]="password?.errors?.required && password.touched"
@@ -68,7 +55,7 @@
   </div>
 
   <div class="form-control-group">
-    <label for="input-re-password">Confirm Password:</label>
+    <label for="input-re-password">{{translator('confirm_password')}}</label>
     <input  nbInput
             fullWidth
             fieldSize="large"
@@ -76,32 +63,42 @@
             formControlName="confirmPassword"
             type="password"
             [status]="confirmPassword.dirty ? (confirmPassword.invalid || password.value != confirmPassword.value  ? 'danger' : 'success') : ''"
-            placeholder="Password">
-    <ngx-validation-message label="Confirm Password"
-      [showMinLength]="confirmPassword?.hasError('minlength') && confirmPassword.touched"
+            placeholder="{{translator('confirm_password')}}">
+    <ngx-validation-message label="{{translator('confirm_password')}}"
+                            [showMinLength]="confirmPassword?.hasError('minlength') && confirmPassword.touched"
       [showMaxLength]="confirmPassword?.hasError('maxlength') && confirmPassword.touched"
       [showRequired]="confirmPassword?.errors?.required && confirmPassword.touched"
+      [showInmatched]="password.value != confirmPassword.value"
       [minLength]="minLength"
       [maxLength]="maxLength"></ngx-validation-message>
-    <p class="error-message" *ngIf="password.value != confirmPassword.value">
-        Password and confirm password does not match!
-    </p>
   </div>
 
   <div class="form-control-group accept-group" *ngIf="getConfigValue('forms.register.terms')">
     <nb-checkbox formControlName="terms" [required]="getConfigValue('forms.register.terms')">
-      Agree to <a href="#" target="_blank"><strong>Terms & Conditions</strong></a>
+      {{translator('agree')}} <a href="#" target="_blank"><strong>{{translator('terms_register')}}</strong></a>
     </nb-checkbox>
   </div>
+  <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
+    <ul class="alert-message-list">
+      <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+    </ul>
+  </nb-alert>
 
+  <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
+    <ul class="alert-message-list">
+      <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+    </ul>
+  </nb-alert>
+  <p>breack</p>
+  <ngx-response-message  [submitted]="submitted"></ngx-response-message>
   <button nbButton fullWidth status="primary" size="large" [disabled]="submitted || !registerForm.valid || !terms?.value"
     [class.btn-pulse]="submitted" (click)="register()">
-    Register
+    {{translator('register')}}
   </button>
 </div>
 
 <section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
-  or enter with:
+  {{translator('or_enter_with')}}
   <div class="socials">
     <ng-container *ngFor="let socialLink of socialLinks">
       <a *ngIf="socialLink.link"
@@ -125,5 +122,7 @@
 </section>
 
 <section class="another-action" aria-label="Sign in">
-  Already have an account? <a class="text-link" routerLink="../login">Log in</a>
+  {{translator('have_an_account')}}
+  <a class="text-link" routerLink="../login">  {{translator('login')}}
+  </a>
 </section>

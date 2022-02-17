@@ -24,6 +24,8 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
+import { LanguageService } from './languages/language.service';
+import {NbAuthModule, NbPasswordAuthStrategy} from "@nebular/auth";
 
 export function init_app(injector: Injector) {
   return () =>
@@ -63,6 +65,7 @@ export function init_app(injector: Injector) {
   ],
   bootstrap: [AppComponent],
   providers: [
+    LanguageService,
     {
       provide: APP_INITIALIZER,
       useFactory: init_app,

@@ -1,0 +1,17 @@
+
+.hide {
+  display: none;
+}
+.inner-addon {
+  position: relative;
+}
+.inner-addon i {
+  position: absolute;
+  z-index: 100;
+  cursor: pointer;
+}
+.right-addon i {
+  right: 10px;
+  top: 12px;
+}
+

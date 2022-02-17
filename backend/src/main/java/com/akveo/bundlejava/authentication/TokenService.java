@@ -126,7 +126,7 @@ public class TokenService {
         Claims claims = Jwts.claims();
 
         claims.setSubject(user.getEmail());
-        claims.put("fullName", String.join(" ", user.getFirstName(), user.getLastName()));
+        claims.put("fullName", String.join(" ", user.getUserName()));
         claims.put("createdAt", user.getCreatedAt());
         claims.put("role", getRoleNames(user.getRoles()));
 

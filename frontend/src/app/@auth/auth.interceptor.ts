@@ -19,11 +19,13 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req)
       .pipe(catchError((error: HttpErrorResponse) => {
+        console.warn(error.status);
         if (error.status === 401) {
           this.router.navigate(['auth/login']);
         }
         // TODO: handle 403 error ?
         return throwError(error);
+
       }));
   }
 }

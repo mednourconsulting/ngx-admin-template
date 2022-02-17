@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { NB_AUTH_OPTIONS, NbAuthService, NbAuthResult } from '@nebular/auth';
 import { getDeepFromObject } from '../../helpers';
 import { EMAIL_PATTERN } from '../constants';
+import {LanguageService} from "../../../languages/language.service";
 
 @Component({
   selector: 'ngx-request-password-page',
@@ -32,7 +33,12 @@ export class NgxRequestPasswordComponent implements OnInit {
               @Inject(NB_AUTH_OPTIONS) protected options = {},
               protected cd: ChangeDetectorRef,
               protected fb: FormBuilder,
-              protected router: Router) { }
+              protected router: Router,
+              protected languageService: LanguageService ) { }
+  translator( key: string) {
+    return this.languageService.getLanguageText(key);
+  }
+
 
   get email() { return this.requestPasswordForm.get('email'); }
 

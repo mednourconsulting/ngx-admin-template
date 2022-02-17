@@ -7,6 +7,7 @@
 package com.akveo.bundlejava.authentication;
 
 import com.akveo.bundlejava.authentication.exception.PasswordsDontMatchException;
+import com.akveo.bundlejava.authentication.exception.UserNotFoundHttpException;
 import com.akveo.bundlejava.authentication.resetpassword.RequestPasswordService;
 import com.akveo.bundlejava.authentication.resetpassword.RestorePasswordService;
 import com.akveo.bundlejava.authentication.resetpassword.ResetPasswordService;
@@ -16,6 +17,7 @@ import com.akveo.bundlejava.authentication.resetpassword.ResetPasswordDTO;
 import com.akveo.bundlejava.authentication.resetpassword.exception.CantSendEmailHttpException;
 import com.akveo.bundlejava.authentication.resetpassword.exception.IncorrectEmailHttpException;
 import com.akveo.bundlejava.authentication.utils.AuthResultDTO;
+import com.akveo.bundlejava.user.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,8 +62,13 @@ public class AuthController {
      */
     @PostMapping("/login")
     public ResponseEntity login(@Valid @RequestBody LoginDTO loginDTO) {
-        Token token = authService.login(loginDTO);
-        return toResponse(token);
+        try {
+            Token token = authService.login(loginDTO);
+            return toResponse(token);
+        } catch (UserNotFoundHttpException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
+
     }
 
     /**
@@ -101,28 +108,16 @@ public class AuthController {
      */
     @PostMapping("/request-pass")
     public ResponseEntity requestPassword(@Valid @RequestBody RequestPasswordDTO requestPasswordDTO) {
-        AuthResultDTO authResult = new AuthResultDTO();
         try {
-            ArrayList<String> messages = new ArrayList<String>();
             requestPasswordService.requestPassword(requestPasswordDTO);
-            authResult.setSuccess(true);
-            messages.add("Lien de récupération, envoyé avec succès ");
-            authResult.setMessages(messages);
-            return new ResponseEntity(authResult, HttpStatus.OK);
+            return new ResponseEntity(HttpStatus.OK);
         } catch ( IncorrectEmailHttpException e) {
-            authResult.setSuccess(false);
-            ArrayList<String>messages = new ArrayList<String>();
-            messages.add(e.getMessage());
-            authResult.setErrors(messages);
-            return new ResponseEntity(authResult,HttpStatus.NOT_FOUND);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }   catch ( CantSendEmailHttpException c) {
-            authResult.setSuccess(false);
-            ArrayList<String> messages = new ArrayList<String>();
-            messages.add(c.getMessage());
-            authResult.setErrors(messages);
-            return new ResponseEntity(authResult,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
 
     /**
      * Sign out. Perform any required actions to log out user, like invalidate user session.
@@ -141,12 +136,13 @@ public class AuthController {
      */
     @PostMapping("/reset-pass")
     public ResponseEntity resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO) {
-        if (!resetPasswordDTO.getConfirmPassword().equals(resetPasswordDTO.getPassword())) {
-            throw new PasswordsDontMatchException();
+        try {
+            resetPasswordService.resetPassword(resetPasswordDTO);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (PasswordsDontMatchException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
-        resetPasswordService.resetPassword(resetPasswordDTO);
-        return ok("Password was reset");
     }
 
     /**

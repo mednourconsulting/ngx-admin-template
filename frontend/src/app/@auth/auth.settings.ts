@@ -6,7 +6,9 @@
 
 import { NbAuthOAuth2JWTToken, NbPasswordAuthStrategy } from '@nebular/auth';
 import { environment } from '../../environments/environment';
+import {LanguageService} from "../languages/language.service";
 
+let languageService: LanguageService = new LanguageService();
 export const socialLinks = [
   {
     url: 'https://github.com/akveo/nebular',
@@ -24,7 +26,12 @@ export const socialLinks = [
     icon: 'twitter',
   },
 ];
-
+/**
+ * For customising the Auth strategy
+ * Need some documentation? visit :
+ * https://akveo.github.io/nebular/docs/auth/configuring-a-strategy#setup-api-configuration
+ * https://akveo.github.io/nebular/docs/auth/nbpasswordauthstrategy#nbpasswordauthstrategy
+ **/
 export const authOptions = {
   strategies: [
     NbPasswordAuthStrategy.setup({
@@ -36,15 +43,25 @@ export const authOptions = {
       },
       login: {
         endpoint: '/auth/login',
+        defaultErrors: [languageService.getLanguageText('default_error_msg')],
+        defaultMessages: [languageService.getLanguageText('default_success_msg')],
         method: 'post',
       },
       register: {
         endpoint: '/auth/sign-up',
+        redirect: {
+          success: '/auth/login',
+          failure: null,
+        },
         method: 'post',
       },
       logout: {
         endpoint: '/auth/sign-out',
         method: 'post',
+        redirect: {
+          success: '/auth/login',
+          failure: null,
+        },
       },
       requestPass: {
         endpoint: '/auth/request-pass',

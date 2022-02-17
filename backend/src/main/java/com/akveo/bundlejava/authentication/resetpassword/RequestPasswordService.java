@@ -88,12 +88,11 @@ public class RequestPasswordService {
             emailRequest.setSubject("Demande de réinitialisation du mot de passe");
             Map<String, String> model = new HashMap<>();
             model.put("email", user.getEmail());
-            model.put("name", user.getLastName() + " "+ user.getFirstName());
+            model.put("name", user.getUserName());
             model.put("url", resetPasswordUrl);
             Template template = configuration.getTemplate("forgotPassword-template.html");
             this.emailService.sendEmail(emailRequest, model,template);
         } catch (IOException | MessagingException exception) {
-            System.out.println("error while sending email");
             throw new CantSendEmailHttpException();
         }
     }

@@ -8,15 +8,19 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxValidationMessageComponent } from './validation-message/validation-message.component';
+import {NgxResponseMessageComponent} from "./response-message/response-message.component";
+import {NbAlertModule} from "@nebular/theme";
 
 const COMPONENTS = [
   NgxValidationMessageComponent,
+  NgxResponseMessageComponent,
 ];
 
 @NgModule({
   imports: [
     FormsModule,
     CommonModule,
+    NbAlertModule,
   ],
   exports: [...COMPONENTS],
   declarations: [...COMPONENTS],

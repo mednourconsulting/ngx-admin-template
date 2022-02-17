@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 import { NB_AUTH_OPTIONS, NbAuthService, NbAuthResult } from '@nebular/auth';
 import { getDeepFromObject } from '../../helpers';
+import {LanguageService} from "../../../languages/language.service";
 
 @Component({
   selector: 'ngx-logout',
@@ -15,12 +16,17 @@ import { getDeepFromObject } from '../../helpers';
 })
 export class NgxLogoutComponent implements OnInit {
 
-  redirectDelay: number = this.getConfigValue('forms.logout.redirectDelay');
+  redirectDelay: number = 1500;
   strategy: string = this.getConfigValue('forms.logout.strategy');
 
   constructor(protected service: NbAuthService,
               @Inject(NB_AUTH_OPTIONS) protected options = {},
-              protected router: Router) { }
+              protected router: Router,
+              protected languageService: LanguageService ) { }
+  translator( key: string) {
+    return this.languageService.getLanguageText(key);
+  }
+
 
   ngOnInit(): void {
     this.logout(this.strategy);
@@ -29,11 +35,11 @@ export class NgxLogoutComponent implements OnInit {
   logout(strategy: string): void {
     localStorage.clear();
     this.service.logout(strategy).subscribe((result: NbAuthResult) => {
-
-      const redirect = result.getRedirect();
+      const redirect = '/auth/login';
       if (redirect) {
         setTimeout(() => {
-          return this.router.navigateByUrl(redirect);
+          return this.router.navigateByUrl(redirect) ;
+
         }, this.redirectDelay);
       }
     });

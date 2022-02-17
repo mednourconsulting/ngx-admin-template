@@ -6,6 +6,7 @@
 
 package com.akveo.bundlejava.authentication.resetpassword;
 
+import com.akveo.bundlejava.authentication.exception.PasswordsDontMatchException;
 import com.akveo.bundlejava.user.ChangePasswordRequest;
 import com.akveo.bundlejava.user.UserContextHolder;
 import com.akveo.bundlejava.user.UserService;
@@ -23,6 +24,9 @@ public class ResetPasswordService {
     }
 
     public void resetPassword(ResetPasswordDTO resetPasswordDTO) {
+        if (!resetPasswordDTO.getConfirmPassword().equals(resetPasswordDTO.getPassword())) {
+            throw new PasswordsDontMatchException();
+        }
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setUser(UserContextHolder.getUser());
         changePasswordRequest.setPassword(resetPasswordDTO.getPassword());

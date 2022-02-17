@@ -6,19 +6,21 @@
 
 import { Component, Input, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import {LanguageService} from "../../languages/language.service";
 
 @Component({
     selector: 'ngx-validation-message',
     styleUrls: ['./validation-message.component.scss'],
     template: `
              <p class="caption status-danger"
-                *ngIf="showMinLength"> Min {{ label }} length is {{ minLength }} symbols </p>
+                *ngIf="showMinLength">{{ translator('min_lenght_msg') }} {{ minLength }} {{ translator('characters') }}</p>
              <p class="caption status-danger"
-                *ngIf="showMaxLength"> Max {{ label }} length is {{ maxLength }} symbols </p>
-             <p class="caption status-danger" *ngIf="showPattern"> Incorrect {{ label }} </p>
-             <p class="caption status-danger" *ngIf="showRequired"> {{ label }} is required</p>
-             <p class="caption status-danger" *ngIf="showMin">Min value of {{ label }} is {{ min }}</p>
-             <p class="caption status-danger" *ngIf="showMax">Max value of {{ label }} is {{ max }}</p>
+                *ngIf="showMaxLength">{{ translator('max_lenght_msg') }} {{ maxLength }} {{ translator('characters') }}</p>
+             <p class="caption status-danger" *ngIf="showPattern">{{ translator('pattern_msg') }}</p>
+             <p class="caption status-danger" *ngIf="showRequired"> {{ translator('is_required_msg') }} </p>
+             <p class="caption status-danger" *ngIf="showMin">{{ translator('min_value_msg') }}{{ min }}</p>
+             <p class="caption status-danger" *ngIf="showMax">{{ translator('max_value_msg') }}{{ max }}</p>
+             <p class="caption status-danger" *ngIf="showInmatched">{{ translator('inmatched_msg') }}</p>
   `,
     providers: [
         {
@@ -29,7 +31,14 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
     ],
 })
 export class NgxValidationMessageComponent {
-    @Input()
+  public languageService: LanguageService;
+
+
+  constructor(languageService: LanguageService) {
+    this.languageService = languageService;
+  }
+
+  @Input()
     label: string = '';
 
     @Input()
@@ -61,4 +70,11 @@ export class NgxValidationMessageComponent {
 
     @Input()
     showPattern?: boolean;
+
+    @Input()
+    showInmatched?: boolean;
+
+  translator( key: string) {
+    return this.languageService.getLanguageText(key);
+  }
 }

@@ -15,4 +15,5 @@ public class UserNotFoundHttpException extends HttpException {
     public UserNotFoundHttpException(String message, HttpStatus status) {
         super(message, status);
     }
+
 }
