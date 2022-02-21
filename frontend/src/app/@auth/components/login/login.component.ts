@@ -16,9 +16,8 @@ import {getDeepFromObject} from '../../helpers';
 import {NbThemeService} from '@nebular/theme';
 import {EMAIL_PATTERN} from '../constants';
 import {InitUserService} from '../../../@theme/services/init-user.service';
-import {LanguageService} from "../../../languages/language.service";
-import {Observable, of} from "rxjs";
-import {MessagesService} from "../../../messages/messages.service";
+import {LanguageService} from "../../../@components/languages/language.service";
+import {MessagesService} from "../../../@components/messages/messages.service";
 
 @Component({
   selector: 'ngx-login',
@@ -42,12 +41,6 @@ export class NgxLoginComponent implements OnInit {
   submitted: boolean = false;
   loginForm: FormGroup;
   alive: boolean = true;
-
- // errors: string[] = [];
-//  messages: string[] = [];
-
- // errorMessage$: Observable<string[]> = of([]);
-  //successMessage$: Observable<string[]> = of([]);
 
   get email() {
     return this.loginForm.get('email');
@@ -74,10 +67,7 @@ export class NgxLoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-/*    this.messagesService.clearErrorMessage();
-    this.messagesService.clearSuccessMessage();
-    this.errorMessage$ = this.messagesService.getErrorMessage();
-    this.successMessage$ = this.messagesService.getSuccessMessage();*/
+
     const emailValidators = [
       Validators.pattern(EMAIL_PATTERN),
     ];
@@ -99,8 +89,6 @@ export class NgxLoginComponent implements OnInit {
   login(): void {
     this.user = this.loginForm.value;
     this.submitted = true;
-    //this.messagesService.clearErrorMessage();
-   // this.messagesService.clearSuccessMessage();
     this.service.authenticate(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       console.warn('result', result.getResponse().status);
       this.submitted = false;

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { NB_AUTH_OPTIONS, NbAuthService, NbAuthResult } from '@nebular/auth';
 import { getDeepFromObject } from '../../helpers';
 import { EMAIL_PATTERN } from '../constants';
-import {LanguageService} from "../../../languages/language.service";
+import {LanguageService} from "../../../@components/languages/language.service";
 
 @Component({
   selector: 'ngx-request-password-page',

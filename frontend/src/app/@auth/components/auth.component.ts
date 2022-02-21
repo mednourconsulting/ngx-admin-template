@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
 import { NbAuthService } from '@nebular/auth';
 import { takeWhile } from 'rxjs/operators';
 import {Observable, of} from "rxjs";
-import {MessagesService} from "../../messages/messages.service";
+import {MessagesService} from "../../@components/messages/messages.service";
 
 @Component({
   selector: 'ngx-auth',

@@ -9,9 +9,8 @@ import {Router} from '@angular/router';
 import {NB_AUTH_OPTIONS, NbAuthSocialLink, NbAuthService, NbAuthResult} from '@nebular/auth';
 import {getDeepFromObject} from '../../helpers';
 import {EMAIL_PATTERN} from '../constants';
-import {LanguageService} from 'app/languages/language.service';
-import {MessagesService} from "../../../messages/messages.service";
-import {Observable, of} from "rxjs";
+import {LanguageService} from 'app/@components/languages/language.service';
+import {MessagesService} from "../../../@components/messages/messages.service";
 
 
 @Component({
@@ -21,8 +20,7 @@ import {Observable, of} from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxRegisterComponent implements OnInit {
-  //errorMessage$: Observable<string[]> = of([]);
- //successMessage$: Observable<string[]> = of([]);
+
   minLength: number = this.getConfigValue('forms.validation.password.minLength');
   maxLength: number = this.getConfigValue('forms.validation.password.maxLength');
   isFullNameRequired: boolean = this.getConfigValue('forms.validation.fullName.required');
@@ -73,10 +71,6 @@ export class NgxRegisterComponent implements OnInit {
     return this.languageService.getLanguageText(key);
   }
   ngOnInit(): void {
-  //  this.messagesService.clearErrorMessage();
-  //  this.messagesService.clearSuccessMessage();
-   // this.errorMessage$ = this.messagesService.getErrorMessage();
-  //  this.successMessage$ = this.messagesService.getSuccessMessage();
     const fullNameValidators = [];
     this.isFullNameRequired && fullNameValidators.push(Validators.required);
     const emailValidators = [
@@ -100,22 +94,8 @@ export class NgxRegisterComponent implements OnInit {
   register(): void {
     this.user = this.registerForm.value;
     this.submitted = true;
-   // this.messagesService.clearErrorMessage();
-  //  this.messagesService.clearSuccessMessage();
-
     this.service.register(this.strategy, this.user).subscribe((result: NbAuthResult) => {
-      console.warn('result : ', result);
       this.submitted = false;
-      /*if (result.isSuccess()) {
-        this.statusValue = result.getResponse().status;
-        this.status = 'successStatus';
-        //this.messagesService.setSuccessMessageFromStatus(result.getResponse().status);
-      } else {
-        this.statusValue = result.getResponse().status;
-        this.status = 'errorStatus';
-
-        //  this.messagesService.setErrorMessageFromStatus(result.getResponse().status);
-      }*/
       this.messagesService.setMessage(result.getResponse().status);
       const redirect = result.getRedirect();
       if (redirect) {

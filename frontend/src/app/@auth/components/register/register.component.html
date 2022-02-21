@@ -78,18 +78,6 @@
       {{translator('agree')}} <a href="#" target="_blank"><strong>{{translator('terms_register')}}</strong></a>
     </nb-checkbox>
   </div>
-  <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
-    <ul class="alert-message-list">
-      <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
-    </ul>
-  </nb-alert>
-
-  <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
-    <ul class="alert-message-list">
-      <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
-    </ul>
-  </nb-alert>
-  <p>breack</p>
   <ngx-response-message  [submitted]="submitted"></ngx-response-message>
   <button nbButton fullWidth status="primary" size="large" [disabled]="submitted || !registerForm.valid || !terms?.value"
     [class.btn-pulse]="submitted" (click)="register()">

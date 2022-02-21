@@ -6,7 +6,7 @@
 
 import { NbAuthOAuth2JWTToken, NbPasswordAuthStrategy } from '@nebular/auth';
 import { environment } from '../../environments/environment';
-import {LanguageService} from "../languages/language.service";
+import {LanguageService} from "../@components/languages/language.service";
 
 let languageService: LanguageService = new LanguageService();
 export const socialLinks = [

@@ -8,7 +8,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NB_AUTH_OPTIONS, NbAuthService, NbAuthResult } from '@nebular/auth';
 import { getDeepFromObject } from '../../helpers';
-import {LanguageService} from "../../../languages/language.service";
+import {LanguageService} from "../../../@components/languages/language.service";
+import {MessagesService} from "../../../@components/messages/messages.service";
+
 
 @Component({
   selector: 'ngx-reset-password-page',
@@ -26,8 +28,6 @@ export class NgxResetPasswordComponent implements OnInit {
   isPasswordRequired: boolean = this.getConfigValue('forms.validation.password.required');
 
   submitted = false;
-  errors: string[] = [];
-  messages: string[] = [];
   user: any = {};
   resetPasswordForm: FormGroup;
 
@@ -36,7 +36,8 @@ export class NgxResetPasswordComponent implements OnInit {
     protected cd: ChangeDetectorRef,
     protected fb: FormBuilder,
     protected router: Router,
-              protected languageService: LanguageService ) { }
+    protected languageService: LanguageService,
+    protected messagesService: MessagesService) { }
 
   translator( key: string) {
     return this.languageService.getLanguageText(key);
@@ -59,26 +60,13 @@ export class NgxResetPasswordComponent implements OnInit {
   get confirmPassword() { return this.resetPasswordForm.get('confirmPassword'); }
 
   resetPass(): void {
-    this.errors = [];
-    this.messages = [];
     this.submitted = true;
     this.user = this.resetPasswordForm.value;
 
     this.service.resetPassword(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       console.warn("result", result);
       this.submitted = false;
-      if (result.isSuccess()) {
-        this.messages.push(this.languageService.getLanguageText('reset_password_sucess_msg'));
-      } else {
-        if (result.getResponse().status === 0) {
-          this.errors.push(this.languageService.getLanguageText('response_status_0'));
-        } else if (result.getResponse().status === 400) {
-          this.errors.push(this.languageService.getLanguageText('inmatched_msg'));
-        } else {
-          this.errors = result.getErrors();
-        }
-      }
-
+      this.messagesService.setMessage(result.getResponse().status);
       const redirect = result.getRedirect();
       if (redirect) {
         setTimeout(() => {

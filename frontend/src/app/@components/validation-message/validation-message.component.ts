@@ -6,7 +6,7 @@
 
 import { Component, Input, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import {LanguageService} from "../../languages/language.service";
+import {LanguageService} from "../languages/language.service";
 
 @Component({
     selector: 'ngx-validation-message',
