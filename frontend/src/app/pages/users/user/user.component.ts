@@ -16,6 +16,8 @@ import { NbToastrService } from '@nebular/theme';
 
 import { UserData, User } from '../../../@core/interfaces/common/users';
 import { EMAIL_PATTERN, NUMBERS_PATTERN } from '../../../@auth/components';
+import { Location } from '@angular/common';
+
 
 
 export enum UserFormMode {
@@ -60,7 +62,8 @@ export class UserComponent implements OnInit, OnDestroy {
               private router: Router,
               private route: ActivatedRoute,
               private toasterService: NbToastrService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private location: Location) {
   }
 
   ngOnInit(): void {
@@ -163,9 +166,9 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   back() {
-    this.router.navigate(['/pages']);
+    this.location.back();
+    return false;
   }
-
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

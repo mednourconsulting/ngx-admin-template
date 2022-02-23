@@ -19,6 +19,7 @@ export class SettingsApi {
   }
 
   updateCurrent(item: any): Observable<any> {
+    console.warn("called");
     return this.api.put(`${this.apiController}/current`, item);
   }
 }

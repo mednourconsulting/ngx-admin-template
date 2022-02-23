@@ -11,77 +11,87 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import {
+  chartsRoute,
+  dashboardRoute, editorsRoute, extraComponentsRoute,
+  formsRoute,
+  iotDashboardRoute, layoutRoute, mapsRoute, miscellaneousRoute,
+  modalOverlaysRoute, tablesRoute,
+  uiFeaturesRoute,
+  usersRoute
+} from "../@auth/components";
+
 
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
     {
-      path: 'dashboard',
+      path: dashboardRoute,
       component: ECommerceComponent,
     },
     {
-      path: 'iot-dashboard',
+      path: iotDashboardRoute,
       component: DashboardComponent,
     },
     {
-      path: 'users',
+      path: usersRoute,
       loadChildren: () => import('./users/users.module')
         .then(m => m.UsersModule),
     },
     {
-      path: 'layout',
+      path: layoutRoute,
       loadChildren: () => import('./layout/layout.module')
         .then(m => m.LayoutModule),
     },
     {
-      path: 'forms',
+      path: formsRoute,
       loadChildren: () => import('./forms/forms.module')
         .then(m => m.FormsModule),
     },
     {
-      path: 'ui-features',
+      path: uiFeaturesRoute,
       loadChildren: () => import('./ui-features/ui-features.module')
         .then(m => m.UiFeaturesModule),
     },
     {
-      path: 'modal-overlays',
+      path: modalOverlaysRoute,
       loadChildren: () => import('./modal-overlays/modal-overlays.module')
         .then(m => m.ModalOverlaysModule),
     },
     {
-      path: 'extra-components',
+      path: extraComponentsRoute,
       loadChildren: () => import('./extra-components/extra-components.module')
         .then(m => m.ExtraComponentsModule),
     },
     {
-      path: 'maps',
+      path: mapsRoute,
       loadChildren: () => import('./maps/maps.module')
         .then(m => m.MapsModule),
     },
     {
-      path: 'charts',
+      path: chartsRoute,
       loadChildren: () => import('./charts/charts.module')
         .then(m => m.ChartsModule),
     },
     {
-      path: 'editors',
+      path: editorsRoute,
       loadChildren: () => import('./editors/editors.module')
         .then(m => m.EditorsModule),
     },
     {
-      path: 'tables',
+      path: tablesRoute,
       loadChildren: () => import('./tables/tables.module')
         .then(m => m.TablesModule),
     },
     {
-      path: 'miscellaneous',
+      path: miscellaneousRoute,
       loadChildren: () => import('./miscellaneous/miscellaneous.module')
         .then(m => m.MiscellaneousModule),
     },
     {
       path: '',
-      redirectTo: 'dashboard',
+      redirectTo: dashboardRoute,
       pathMatch: 'full',
     },
     {

@@ -21,4 +21,30 @@
       }
     }
   }
+
+}
+//to change the page's scrollbar
+/* width */
+//---------------------------------------
+:host ::ng-deep {
+  nb-layout div.scrollable-container div.scrollable::-webkit-scrollbar,
+  nb-layout div.scrollable-container div.layout div.layout-container div.content div.columns nb-layout-column.bg-info nb-card nb-card-body.container-fluid::-webkit-scrollbar,
+  nb-layout div.scrollable-container::-webkit-scrollbar {
+    width: 0.4rem !important;
+    height: 0.4em!important;
+  }
+
+  /* thumb */
+  nb-layout div.scrollable-container div.scrollable::-webkit-scrollbar-thumb,
+  nb-layout div.scrollable-container::-webkit-scrollbar-thumb
+  {
+    background-color:nb-theme(color-primary-300) !important;
+  }
+
+  /* Track */
+  nb-layout div.scrollable-container div.scrollable::-webkit-scrollbar-track,
+  nb-layout div.scrollable-container::-webkit-scrollbar-track
+  {
+    background-color:nb-theme(color-primary-100) !important;
+  }
 }

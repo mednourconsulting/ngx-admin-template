@@ -52,7 +52,7 @@
   <div class="form-control-group accept-group">
     <nb-checkbox name="rememberMe" *ngIf="rememberMe">{{translator('remember_me')}}</nb-checkbox>
   </div>
-  <ngx-response-message  [submitted]="submitted"></ngx-response-message>
+  <ngx-response-message  [submitted]="submitted" ></ngx-response-message>
   <button nbButton fullWidth status="primary" size="large"
    (click)="login()" [disabled]="submitted || !loginForm.valid"
     [class.btn-pulse]="submitted">

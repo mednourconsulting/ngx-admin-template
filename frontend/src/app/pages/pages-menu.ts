@@ -7,6 +7,22 @@
 import { NbMenuItem } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
+import {
+  authRoute,
+  loginRoute,
+  pagesRoute,
+  registerRoute,
+  requestPasswordRoute,
+  resetPasswordRoute,
+  chartsRoute,
+  editorsRoute,
+  mapsRoute,
+  miscellaneousRoute,
+  tablesRoute,
+  extraComponentsRoute,
+  modalOverlaysRoute,
+  uiFeaturesRoute, formsRoute, layoutRoute, iotDashboardRoute, dashboardRoute, usersRoute
+} from "../@auth/components";
 
 @Injectable()
 export class PagesMenu {
@@ -16,14 +32,16 @@ export class PagesMenu {
       {
         title: 'E-commerce',
         icon: 'shopping-cart-outline',
-        link: '/pages/dashboard',
+        link: '/'+pagesRoute+'/'+dashboardRoute,
         home: true,
         children: undefined,
       },
       {
         title: 'IoT Dashboard',
         icon: 'home-outline',
-        link: '/pages/iot-dashboard',
+        link: '/'+pagesRoute+'/'+iotDashboardRoute,
+
+
         children: undefined,
       },
     ];
@@ -39,24 +57,29 @@ export class PagesMenu {
         children: [
           {
             title: 'Stepper',
-            link: '/pages/layout/stepper',
+            link: '/'+pagesRoute+'/'+layoutRoute+ '/stepper'
+
           },
           {
             title: 'List',
-            link: '/pages/layout/list',
+            link: '/'+pagesRoute+'/'+layoutRoute+ '/list'
+
           },
           {
             title: 'Infinite List',
-            link: '/pages/layout/infinite-list',
+            link: '/'+pagesRoute+'/'+layoutRoute+ '/infinite-list'
+
           },
           {
             title: 'Accordion',
-            link: '/pages/layout/accordion',
+            link: '/'+pagesRoute+'/'+layoutRoute+ '/accordion'
+
           },
           {
             title: 'Tabs',
             pathMatch: 'prefix',
-            link: '/pages/layout/tabs',
+            link: '/'+pagesRoute+'/'+layoutRoute+ '/tabs'
+
           },
         ],
       },
@@ -66,19 +89,23 @@ export class PagesMenu {
         children: [
           {
             title: 'Form Inputs',
-            link: '/pages/forms/inputs',
+            link: '/'+pagesRoute+'/'+formsRoute+ '/inputs'
+
           },
           {
             title: 'Form Layouts',
-            link: '/pages/forms/layouts',
+            link: '/'+pagesRoute+'/'+formsRoute+ '/layouts'
+
           },
           {
             title: 'Buttons',
-            link: '/pages/forms/buttons',
+            link: '/'+pagesRoute+'/'+formsRoute+ '/buttons'
+
           },
           {
             title: 'Datepicker',
-            link: '/pages/forms/datepicker',
+            link: '/'+pagesRoute+'/'+formsRoute+ '/datepicker'
+
           },
         ],
       },
@@ -89,19 +116,19 @@ export class PagesMenu {
         children: [
           {
             title: 'Grid',
-            link: '/pages/ui-features/grid',
+            link: '/'+pagesRoute+'/'+uiFeaturesRoute+ '/grid'
           },
           {
             title: 'Icons',
-            link: '/pages/ui-features/icons',
+            link: '/'+pagesRoute+'/'+uiFeaturesRoute+ '/icons'
           },
           {
             title: 'Typography',
-            link: '/pages/ui-features/typography',
+            link: '/'+pagesRoute+'/'+uiFeaturesRoute+ '/typography'
           },
           {
             title: 'Animated Searches',
-            link: '/pages/ui-features/search-fields',
+            link: '/'+pagesRoute+'/'+uiFeaturesRoute+ '/search-fields'
           },
         ],
       },
@@ -111,23 +138,27 @@ export class PagesMenu {
         children: [
           {
             title: 'Dialog',
-            link: '/pages/modal-overlays/dialog',
+            link: '/'+pagesRoute+'/'+modalOverlaysRoute+ '/dialog'
+
           },
           {
             title: 'Window',
-            link: '/pages/modal-overlays/window',
+            link: '/'+pagesRoute+'/'+modalOverlaysRoute+ '/window'
+
           },
           {
             title: 'Popover',
-            link: '/pages/modal-overlays/popover',
+            link: '/'+pagesRoute+'/'+modalOverlaysRoute+ '/popover'
+
           },
           {
             title: 'Toastr',
-            link: '/pages/modal-overlays/toastr',
+            link: '/'+pagesRoute+'/'+modalOverlaysRoute+ '/toastr'
+
           },
           {
             title: 'Tooltip',
-            link: '/pages/modal-overlays/tooltip',
+            link: '/'+pagesRoute+'/'+modalOverlaysRoute+ '/tooltip'
           },
         ],
       },
@@ -137,27 +168,32 @@ export class PagesMenu {
         children: [
           {
             title: 'Calendar',
-            link: '/pages/extra-components/calendar',
+            link: '/'+pagesRoute+'/'+extraComponentsRoute+ '/calendar'
+
           },
           {
             title: 'Progress Bar',
-            link: '/pages/extra-components/progress-bar',
+            link: '/'+pagesRoute+'/'+extraComponentsRoute+ '/progress-bar'
+
           },
           {
             title: 'Spinner',
-            link: '/pages/extra-components/spinner',
+            link: '/'+pagesRoute+'/'+extraComponentsRoute+ '/spinner'
+
           },
           {
             title: 'Alert',
-            link: '/pages/extra-components/alert',
+            link: '/'+pagesRoute+'/'+extraComponentsRoute+ '/alert'
+
           },
           {
             title: 'Calendar Kit',
-            link: '/pages/extra-components/calendar-kit',
+            link: '/'+pagesRoute+'/'+extraComponentsRoute+ '/calendar-kit'
+
           },
           {
             title: 'Chat',
-            link: '/pages/extra-components/chat',
+            link: '/'+pagesRoute+'/'+extraComponentsRoute+ '/chat'
           },
         ],
       },
@@ -167,19 +203,22 @@ export class PagesMenu {
         children: [
           {
             title: 'Google Maps',
-            link: '/pages/maps/gmaps',
+            link: '/'+pagesRoute+'/'+mapsRoute+ '/gmaps'
+
           },
           {
             title: 'Leaflet Maps',
-            link: '/pages/maps/leaflet',
+            link: '/'+pagesRoute+'/'+mapsRoute+ '/leaflet'
+
           },
           {
             title: 'Bubble Maps',
-            link: '/pages/maps/bubble',
+            link: '/'+pagesRoute+'/'+mapsRoute+ '/bubble'
           },
           {
             title: 'Search Maps',
-            link: '/pages/maps/searchmap',
+            link: '/'+pagesRoute+'/'+mapsRoute+ '/searchmap'
+
           },
         ],
       },
@@ -189,15 +228,18 @@ export class PagesMenu {
         children: [
           {
             title: 'Echarts',
-            link: '/pages/charts/echarts',
+            link: '/'+pagesRoute+'/'+chartsRoute+ '/echarts'
+
           },
           {
             title: 'Charts.js',
-            link: '/pages/charts/chartjs',
+            link: '/'+pagesRoute+'/'+chartsRoute+ '/chartjs'
+
           },
           {
             title: 'D3',
-            link: '/pages/charts/d3',
+            link: '/'+pagesRoute+'/'+chartsRoute+ '/d3'
+
           },
         ],
       },
@@ -207,11 +249,13 @@ export class PagesMenu {
         children: [
           {
             title: 'TinyMCE',
-            link: '/pages/editors/tinymce',
+            link: '/'+pagesRoute+'/'+editorsRoute+ '/tinymce'
+
           },
           {
             title: 'CKEditor',
-            link: '/pages/editors/ckeditor',
+            link: '/'+pagesRoute+'/'+editorsRoute+ '/ckeditor'
+
           },
         ],
       },
@@ -221,11 +265,12 @@ export class PagesMenu {
         children: [
           {
             title: 'Smart Table',
-            link: '/pages/tables/smart-table',
+            link: '/'+pagesRoute+'/'+tablesRoute+ '/smart-table'
+
           },
           {
             title: 'Tree Grid',
-            link: '/pages/tables/tree-grid',
+            link: '/'+pagesRoute+'/'+tablesRoute+ '/tree-grid'
           },
         ],
       },
@@ -235,7 +280,21 @@ export class PagesMenu {
         children: [
           {
             title: '404',
-            link: '/pages/miscellaneous/404',
+            link: '/'+pagesRoute+'/'+miscellaneousRoute+ '/404',
+          },
+        ],
+      },
+      {
+        title: 'Users',
+        icon: 'people-outline',
+        children: [
+          {
+            title: 'Add',
+            link: '/'+pagesRoute+'/'+usersRoute+ '/add',
+          },
+          {
+            title: 'current',
+            link: '/'+pagesRoute+'/'+usersRoute+ '/current',
           },
         ],
       },
@@ -245,19 +304,19 @@ export class PagesMenu {
         children: [
           {
             title: 'Login',
-            link: '/auth/login',
+            link: '/'+authRoute+'/'+loginRoute,
           },
           {
             title: 'Register',
-            link: '/auth/register',
+            link: '/'+authRoute+'/'+registerRoute,
           },
           {
             title: 'Request Password',
-            link: '/auth/request-password',
+            link: '/'+authRoute+'/'+requestPasswordRoute,
           },
           {
             title: 'Reset Password',
-            link: '/auth/reset-password',
+            link: '/'+authRoute+'/'+resetPasswordRoute,
           },
         ],
       },

@@ -43,8 +43,8 @@ export const authOptions = {
       },
       login: {
         endpoint: '/auth/login',
-        defaultErrors: [languageService.getLanguageText('default_error_msg')],
-        defaultMessages: [languageService.getLanguageText('default_success_msg')],
+        defaultErrors: [languageService.getLanguageText('response_status_403')],
+        defaultMessages: [languageService.getLanguageText('response_status_200')],
         method: 'post',
       },
       register: {
@@ -58,10 +58,6 @@ export const authOptions = {
       logout: {
         endpoint: '/auth/sign-out',
         method: 'post',
-        redirect: {
-          success: '/auth/login',
-          failure: null,
-        },
       },
       requestPass: {
         endpoint: '/auth/request-pass',

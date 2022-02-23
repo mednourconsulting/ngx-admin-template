@@ -6,6 +6,8 @@
 
 package com.akveo.bundlejava.authentication.resetpassword;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -13,6 +15,7 @@ public class RestorePasswordDTO {
 
     @NotNull
     @NotEmpty
+    @JsonProperty("token")
     private String token;
 
     @NotNull
@@ -22,6 +25,7 @@ public class RestorePasswordDTO {
     @NotNull
     @NotEmpty
     private String confirmPassword;
+
 
     public String getToken() {
         return token;

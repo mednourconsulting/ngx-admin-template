@@ -57,8 +57,8 @@ export class NgxLoginComponent implements OnInit {
               private fb: FormBuilder,
               protected router: Router,
               protected initUserService: InitUserService,
-                 protected languageService: LanguageService,
-             private messagesService: MessagesService,
+              protected languageService: LanguageService,
+              private messagesService: MessagesService,
   ) {
   }
 

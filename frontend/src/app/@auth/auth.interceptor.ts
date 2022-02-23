@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import {authRoute, loginRoute} from "./components";
+
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -21,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
       .pipe(catchError((error: HttpErrorResponse) => {
         console.warn(error.status);
         if (error.status === 401) {
-          this.router.navigate(['auth/login']);
+          this.router.navigate([authRoute, loginRoute]);
         }
         // TODO: handle 403 error ?
         return throwError(error);

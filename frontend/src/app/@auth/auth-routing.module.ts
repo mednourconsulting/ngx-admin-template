@@ -12,8 +12,11 @@ import {
   NgxRegisterComponent,
   NgxLogoutComponent,
   NgxRequestPasswordComponent,
-  NgxResetPasswordComponent,
+  NgxResetPasswordComponent, loginRoute, registerRoute, logoutRoute, requestPasswordRoute, resetPasswordRoute,
 } from './components';
+import {AuthGuard} from "./auth.guard";
+
+
 
 const routes: Routes = [{
   path: '',
@@ -24,23 +27,27 @@ const routes: Routes = [{
       component: NgxLoginComponent,
     },
     {
-      path: 'login',
+      path: loginRoute,
+      canActivate: [AuthGuard],
       component: NgxLoginComponent,
     },
     {
-      path: 'register',
+      path: registerRoute,
+      canActivate: [AuthGuard],
       component: NgxRegisterComponent,
     },
     {
-      path: 'logout',
+      path: logoutRoute,
       component: NgxLogoutComponent,
     },
     {
-      path: 'request-password',
+      path: requestPasswordRoute,
+
+      canActivate: [AuthGuard],
       component: NgxRequestPasswordComponent,
     },
     {
-      path: 'reset-password',
+      path: resetPasswordRoute,
       component: NgxResetPasswordComponent,
     },
   ],

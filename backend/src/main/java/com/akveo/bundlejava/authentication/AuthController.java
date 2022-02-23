@@ -16,6 +16,7 @@ import com.akveo.bundlejava.authentication.resetpassword.RequestPasswordDTO;
 import com.akveo.bundlejava.authentication.resetpassword.ResetPasswordDTO;
 import com.akveo.bundlejava.authentication.resetpassword.exception.CantSendEmailHttpException;
 import com.akveo.bundlejava.authentication.resetpassword.exception.IncorrectEmailHttpException;
+import com.akveo.bundlejava.authentication.resetpassword.exception.TokenNotFoundOrExpiredHttpException;
 import com.akveo.bundlejava.authentication.utils.AuthResultDTO;
 import com.akveo.bundlejava.user.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -75,17 +77,34 @@ public class AuthController {
      * Restore password
      * @param restorePasswordDTO new password with token
      * @return result message
-     */
+
     @PostMapping("/restore-pass")
-    public ResponseEntity restorePassword(@Valid @RequestBody RestorePasswordDTO restorePasswordDTO) {
+    public ResponseEntity restorePassword(@Valid @RequestBody RestorePasswordDTO restorePasswordDTO) throws IOException {
         if (!restorePasswordDTO.getNewPassword().equals(restorePasswordDTO.getConfirmPassword())) {
             throw new PasswordsDontMatchException();
         }
 
         restorePasswordService.restorePassword(restorePasswordDTO);
         return ok("Password was restored");
+    }*/
+    /**
+     * Restore password
+     * @param restorePasswordDTO new password with token
+     * @return result message
+    */
+    @PostMapping("/restore-pass")
+    public ResponseEntity restorePassword(@Valid @RequestBody RestorePasswordDTO restorePasswordDTO) {
+        try {
+            restorePasswordService.restorePassword(restorePasswordDTO);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (IOException iOException) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (TokenNotFoundOrExpiredHttpException e) {
+            return new  ResponseEntity(HttpStatus.FORBIDDEN);
+        } catch (PasswordsDontMatchException e) {
+            return new  ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
-
     /**
      * Sign up
      * @param signUpDTO sign up user data

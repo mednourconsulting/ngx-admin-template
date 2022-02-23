@@ -10,6 +10,7 @@ import { NB_AUTH_OPTIONS, NbAuthService, NbAuthResult } from '@nebular/auth';
 import { getDeepFromObject } from '../../helpers';
 import { EMAIL_PATTERN } from '../constants';
 import {LanguageService} from "../../../@components/languages/language.service";
+import {MessagesService} from "../../../@components/messages/messages.service";
 
 @Component({
   selector: 'ngx-request-password-page',
@@ -19,7 +20,6 @@ import {LanguageService} from "../../../@components/languages/language.service";
 })
 export class NgxRequestPasswordComponent implements OnInit {
   redirectDelay: number = this.getConfigValue('forms.requestPassword.redirectDelay');
-  showMessages: any = this.getConfigValue('forms.requestPassword.showMessages');
   strategy: string = this.getConfigValue('forms.requestPassword.strategy');
   isEmailRequired: boolean = this.getConfigValue('forms.validation.email.required');
 
@@ -28,13 +28,15 @@ export class NgxRequestPasswordComponent implements OnInit {
   messages: string[] = [];
   user: any = {};
   requestPasswordForm: FormGroup;
+  loading: boolean = false;
 
   constructor(protected service: NbAuthService,
               @Inject(NB_AUTH_OPTIONS) protected options = {},
               protected cd: ChangeDetectorRef,
               protected fb: FormBuilder,
               protected router: Router,
-              protected languageService: LanguageService ) { }
+              protected languageService: LanguageService,
+              protected messagesService: MessagesService ) { }
   translator( key: string) {
     return this.languageService.getLanguageText(key);
   }
@@ -57,14 +59,13 @@ export class NgxRequestPasswordComponent implements OnInit {
     this.user = this.requestPasswordForm.value;
     this.errors = this.messages = [];
     this.submitted = true;
-
+    this.loading= true;
     this.service.requestPassword(this.strategy, this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
-      if (result.isSuccess()) {
-        this.messages = result.getMessages();
-      } else {
-        this.errors = result.getErrors();
-      }
+      console.warn('result', result.getResponse().status);
+      this.submitted = false;
+      this.messagesService.setMessage(result.getResponse().status);
+      this.loading = false;
 
       const redirect = result.getRedirect();
       if (redirect) {

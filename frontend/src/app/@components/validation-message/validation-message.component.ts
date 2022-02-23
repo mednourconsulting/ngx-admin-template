@@ -20,7 +20,7 @@ import {LanguageService} from "../languages/language.service";
              <p class="caption status-danger" *ngIf="showRequired"> {{ translator('is_required_msg') }} </p>
              <p class="caption status-danger" *ngIf="showMin">{{ translator('min_value_msg') }}{{ min }}</p>
              <p class="caption status-danger" *ngIf="showMax">{{ translator('max_value_msg') }}{{ max }}</p>
-             <p class="caption status-danger" *ngIf="showInmatched">{{ translator('inmatched_msg') }}</p>
+             <p class="caption status-danger" *ngIf="showInmatched">{{ translator('pw_inmatched_msg') }}</p>
   `,
     providers: [
         {

@@ -11,6 +11,7 @@ import com.akveo.bundlejava.authentication.exception.PasswordsDontMatchException
 import com.akveo.bundlejava.authentication.exception.UserNotFoundHttpException;
 import com.akveo.bundlejava.role.RoleService;
 import com.akveo.bundlejava.settings.Settings;
+import com.akveo.bundlejava.settings.SettingsDTO;
 import com.akveo.bundlejava.settings.SettingsService;
 import com.akveo.bundlejava.user.exception.UserAlreadyExistsException;
 import com.akveo.bundlejava.user.exception.UserNotFoundException;
@@ -107,6 +108,14 @@ public class UserService {
         User user = UserContextHolder.getUser();
         user.setSettings(settingsService.getSettingsByUserId(user.getId()));
 
+        return modelMapper.map(user, UserDTO.class);
+    }
+
+    public UserDTO updateUserSettings(SettingsDTO settingsDTO) {
+        User user = UserContextHolder.getUser();
+        Settings settings = modelMapper.map(settingsDTO, Settings.class);
+        user.setSettings(settingsService.findByThemeName(settings.getThemeName()));
+        userRepository.save(user);
         return modelMapper.map(user, UserDTO.class);
     }
 

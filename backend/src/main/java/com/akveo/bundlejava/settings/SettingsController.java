@@ -16,7 +16,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * Controller for managing user settings
  */
 @Controller
-@RequestMapping("/settings")
+@RequestMapping("api/settings")
 public class SettingsController {
     private SettingsService settingsService;
 

@@ -60,8 +60,15 @@ export class UsersApi {
   updateCurrent(item: any): Observable<any> {
     return this.api.put(`${this.apiController}/current`, item);
   }
+ updateUserSettings(item: any): Observable<any> {
+    return this.api.put(`${this.apiController}/current/theme`, item);
+  }
 
   update(item: any): Observable<any> {
     return this.api.put(`${this.apiController}/${item.id}`, item);
+  }
+
+  restorePassword(params: any): Observable<any> {
+    return this.api.post(`auth/restore-pass`, params);
   }
 }

@@ -4,24 +4,35 @@
  * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
  */
 
-import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { AuthGuard } from './@auth/auth.guard';
+import {ExtraOptions, RouterModule, Routes} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {PagesGuard} from './@auth/pages.guard';
+import {authRoute, pagesRoute} from "./@auth/components";
+
+
 
 const routes: Routes = [
   {
-    path: 'pages',
-    canActivate: [AuthGuard],
+    path: '',
+    redirectTo: pagesRoute,
+    pathMatch: 'full',
+  },
+  {
+    path: pagesRoute,
+    canActivate: [PagesGuard],
     loadChildren: () => import('app/pages/pages.module')
       .then(m => m.PagesModule),
   },
   {
-    path: 'auth',
+    path: authRoute,
     loadChildren: () => import('app/@auth/auth.module')
       .then(m => m.AuthModule),
   },
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
-  { path: '**', redirectTo: 'pages' },
+  {
+    path: '**',
+    redirectTo: pagesRoute,
+    pathMatch: 'full',
+  },
 ];
 
 const config: ExtraOptions = {
@@ -33,4 +44,5 @@ const config: ExtraOptions = {
   exports: [RouterModule],
 })
 export class AppRoutingModule {
+
 }

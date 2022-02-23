@@ -6,6 +6,7 @@
 
 package com.akveo.bundlejava.user;
 
+import com.akveo.bundlejava.settings.SettingsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -100,5 +101,9 @@ public class UserController {
     public ResponseEntity createUser(@Valid @RequestBody UserDTO userDTO) {
         return ok(userService.createUser(userDTO));
     }
-
+    @PutMapping("/current/theme")
+    public ResponseEntity updateUserSettings(@Valid @RequestBody SettingsDTO settingsDTO) {
+        System.out.println("reached");
+        return ok(userService.updateUserSettings(settingsDTO));
+    }
 }

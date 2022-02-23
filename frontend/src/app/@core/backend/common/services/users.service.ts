@@ -11,6 +11,7 @@ import { UserData, User } from '../../../interfaces/common/users';
 import { DataSource } from 'ng2-smart-table/lib/data-source/data-source';
 import { NbAuthService } from '@nebular/auth';
 import { switchMap, map } from 'rxjs/operators';
+import {Settings} from "../../../interfaces/common/settings";
 
 @Injectable()
 export class UsersService extends UserData {
@@ -57,8 +58,15 @@ export class UsersService extends UserData {
   updateCurrent(user: any): Observable<User> {
     return this.api.updateCurrent(user);
   }
+  updateUserSettings(settings: Settings): Observable<User> {
+    return this.api.updateUserSettings(settings);
+  }
 
   delete(id: number): Observable<boolean> {
     return this.api.delete(id);
+  }
+
+  restorePassword(params: any): Observable<any>  {
+    return this.api.restorePassword(params);
   }
 }

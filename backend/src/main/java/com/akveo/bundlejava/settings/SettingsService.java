@@ -25,9 +25,7 @@ public class SettingsService {
     }
 
     public Settings getSettingsByUserId(Long id) {
-        return settingsRepository.findById(id).orElseThrow(
-                () -> new SettingsNotFoundHttpException("Setting with id: " + id + " not found", HttpStatus.NOT_FOUND)
-        );
+        return settingsRepository.findByUserId(id);
     }
 
     public SettingsDTO getCurrentSettings() {
@@ -39,14 +37,11 @@ public class SettingsService {
     public SettingsDTO updateCurrentSettings(SettingsDTO settingsDTO) {
         User user = UserContextHolder.getUser();
         Long id = user.getId();
-
         return updateSettingsByUserId(id, settingsDTO);
     }
 
     private SettingsDTO updateSettingsByUserId(Long id, SettingsDTO settingsDTO) {
-        settingsRepository.findById(id).orElseThrow(() ->
-                new SettingsNotFoundHttpException("Setting with id: " + id + " not found", HttpStatus.NOT_FOUND)
-        );
+        settingsRepository.findByUserId(id);
 
         Settings updatedSettings = modelMapper.map(settingsDTO, Settings.class);
         updatedSettings.setId(id);

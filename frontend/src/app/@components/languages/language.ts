@@ -18,8 +18,6 @@ export const language = {
     'forgot_password'       : 'Mot de passe oublier?',
     'remember_me'           : 'Se souvenir de moi',
     'dont_have_an_account'  : 'Vous n\'avez pas de compte',
-    'default_error_msg'     : 'La combinaison Email/Mot de passe n\'est pas correcte, veuillez réessayer',
-    'default_success_msg'   : 'Vous avez été connecté avec succès',
 
     // Loging Out page
     'logging_out'           : 'Déconnexion, veuillez patienter...',
@@ -55,16 +53,15 @@ export const language = {
         //showMax
     'max_value_msg'         : 'La maximum valeur que doit prendre ce champ, est ',
         //showInmatched
-    'inmatched_msg'         : 'Les mots de passe ne correspondent pas',
+    'pw_inmatched_msg'         : 'Les mots de passe ne correspondent pas',
 
     // Response Status
-    'error'                 : 'Erreur',
-    'error_register_409'    : 'Email existe déjà ',
-    'error_500'             : 'Erreur survenue',
-    'response_status_0'     : 'Une erreur est survenue, veuillez réessayer plus tard',
+    'response_status_0'     : 'Une erreur est survenue, veuillez réessayer plus tard' +
+      'Il s\'agit peut-être d\'un problème de serveur. Si le problème persiste, veuillez contacter le service informatique.',
     'response_status_403'   : 'La combinaison Email/Mot de passe n\'est pas correcte, veuillez réessayer',
+    'response_status_404'   : 'Demande invalide, veuillez vérifier la certitude des données saisies.',
     'response_status_200'   : 'Opération effectuée avec succès',
-    'response_status_500'   : 'Invalid request, please check the certainty of your data',
+    'response_status_500'   : 'Une erreur est survenue, veuillez réessayer plus tard',
     'response_status_400'   : 'Les mots de passe ne correspondent pas',
 
 
@@ -125,14 +122,16 @@ export const language = {
         //showMax
     'max_value_msg'         : 'The maximum value for this field, is ',
         //showInmatched
-    'inmatched_msg'         : 'Passwords don\'t match',
+    'pw_inmatched_msg'         : 'Passwords don\'t match',
 
     // Response Status
-    'response_status_0'     : 'Something went wrong, please try again later',
+    'response_status_0'     : 'Something went wrong, please try again later.' +
+      'This may be a server problem. If the problem persists, please contact the IT department',
     'response_status_400'   : 'Passwords don\'t match',
     'response_status_403'   : 'Login/Email combination is not correct, please try again.',
+    'response_status_404'   : 'Invalid request, please check the certainty of the data entered',
     'response_status_200'   : 'Operation successfully completed',
-    'response_status_500'   : 'Demande invalide, veuillez vérifier la certitude de vos données.',
+    'response_status_500'   : 'Something went wrong, please try again later.',
 
 
   },

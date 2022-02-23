@@ -36,21 +36,16 @@ import {MessagesService} from "../messages/messages.service";
 export class NgxResponseMessageComponent implements OnInit{
   @Input()
   submitted? : boolean;
-
   errorMessage$: Observable<string[]> = of([]);
   successMessage$: Observable<string[]> = of([]);
-  private languageService: LanguageService;
-  private messagesService: MessagesService;
-    ngOnInit(): void {
-      this.messagesService.clearErrorMessage();
-      this.messagesService.clearSuccessMessage();
-      this.errorMessage$ = this.messagesService.getErrorMessage();
-      this.successMessage$ = this.messagesService.getSuccessMessage();
-    }
 
-  constructor(languageService: LanguageService, messagesService: MessagesService) {
-    this.languageService = languageService;
-    this.messagesService = messagesService;
+  constructor(private languageService: LanguageService,private messagesService: MessagesService) {}
+
+
+  ngOnInit(): void {
+    this.messagesService.clearAllMessages();
+    this.errorMessage$ = this.messagesService.getErrorMessage();
+    this.successMessage$ = this.messagesService.getSuccessMessage();
   }
 
   translator( key: string) {

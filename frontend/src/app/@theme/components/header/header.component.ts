@@ -12,6 +12,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UserStore } from '../../../@core/stores/user.store';
 import { SettingsData } from '../../../@core/interfaces/common/settings';
+import {UsersService} from "../../../@core/backend/common/services/users.service";
 
 @Component({
   selector: 'ngx-header',
@@ -51,6 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private menuService: NbMenuService,
               private themeService: NbThemeService,
               private userStore: UserStore,
+              private usersService: UsersService,
               private settingsService: SettingsData,
               private layoutService: LayoutService,
               private breakpointService: NbMediaBreakpointsService) {
@@ -93,7 +95,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   changeTheme(themeName: string) {
     this.userStore.setSetting(themeName);
-    this.settingsService.updateCurrent(this.userStore.getUser().settings)
+    this.usersService.updateUserSettings(this.userStore.getUser().settings)
       .pipe(takeUntil(this.destroy$))
       .subscribe();
 
