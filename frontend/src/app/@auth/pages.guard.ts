@@ -9,10 +9,10 @@ import { NbAuthService } from '@nebular/auth';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import { Observable } from 'rxjs';
 import {map, tap} from 'rxjs/operators';
-import {dashboardRoute, pagesRoute} from "./components";
+import {authRoute, loginRoute} from "./components";
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class PagesGuard implements CanActivate {
   constructor(private authService: NbAuthService, private router: Router) {}
 
   canActivate(
@@ -22,9 +22,9 @@ export class AuthGuard implements CanActivate {
     return this.authService.isAuthenticated()
       .pipe(
         map(authenticated => {
-          if (authenticated) {
-           this.router.navigate([pagesRoute, dashboardRoute]);
-           return false;
+          if (!authenticated) {
+            this.router.navigate([authRoute, loginRoute]);
+            return false;
           } else {
             return true;
           }
