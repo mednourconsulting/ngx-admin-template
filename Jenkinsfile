@@ -8,7 +8,8 @@ agent {
     stages {
         stage ('clone repository') {
             steps {
-                sh '''cd backend'''
+                sh '''cd backend/'''
+                sh '''pwd'''
                 sh '''ls'''
             }
         }
