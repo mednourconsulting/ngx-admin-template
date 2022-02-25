@@ -8,15 +8,19 @@ agent {
     stages {
         stage ('clone repository') {
             steps {
-                sh '''cd backend/'''
-                sh '''pwd'''
-                sh '''ls'''
+                dir('backend') {
+                 sh "pwd"
+                 sh 'mvn -Dmaven.test.failure.ignore=true install'
+                 }
             }
         }
 
         stage ('Build') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+                 dir('frontend') {
+                 sh "pwd"
+                 sh 'npm install'
+                 }  
             }
             post {
                 success {
