@@ -8,9 +8,7 @@ agent {
     stages {
         stage ('clone repository') {
             steps {
-          
-                sh '''git clone https://github.com/mednourconsulting/ngx-admin-template'''
-                sh '''cd ngx-admin-template/backend'''
+                sh '''cd backend/'''
                 sh '''pwd'''
                 sh '''ls'''
             }
